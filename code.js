@@ -1,4 +1,5 @@
 let numClass = 'number1'
+let operator = null;
 const display = document.querySelector('#display');
 
 function getPressedKey(key) {   
@@ -20,17 +21,30 @@ function checkIfNum(character) {
 }
 
 function buttonClick(e) {
+    // get the value of the key pressed
     pressedKey = e.target.innerText;
+    
+    // check if pressedkey is number or symbol
+    // if number, append into display. 
     if (checkIfNum(pressedKey)) {
         let num = document.createElement('div');
         num.classList = numClass;
         num.textContent = pressedKey;    
         display.appendChild(num);
+
+    // if symbol, append it to display and assign it to 'operator'
     } else {
-        console.log('not number');
+        operator = pressedKey;
+        console.log(operator);
+        let symbol = document.createElement('div');
+        symbol.classList = 'symbol'
+        symbol.textContent = pressedKey;
+        display.appendChild(symbol);
+
+    // also change numberClass, when symbol is input
         if (numClass == 'number1') {
             numClass = 'number2';
-            console.log(numClass)
+
         } else if (numClass == 'number2') {
             numClass = 'number1';
         }
