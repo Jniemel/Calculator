@@ -22,21 +22,20 @@ body {
 
 #display {
     display: flex;
-    justify-content: end;    
+    justify-content: end;
+    align-items: center;    
     border: solid black 1px;
     border-radius: 15px;
     width: 400px;
     height: 60px;
     margin-bottom: 10px;    
 }
-
-.display-char {
-    border: solid black 1px;
+.number1,
+.number2,
+.symbol {
     margin-top: 10px;
-    margin-bottom: 10px;
-    margin-right: 10px;
-    width: 10px;    
-
+    margin-bottom: 10px;    
+    width: 15px;
 }
 
 #button-container {
