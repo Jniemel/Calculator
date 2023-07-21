@@ -1,18 +1,16 @@
+// assign number class, to differentiate first set and second set of numbers
 let numClass = 'number1'
+// initialize variables
 let operator = null;
 let hasOperator = false;
 let result = null;
+
+// create reference elements
 const display = document.querySelector('#display');
+const symbol = document.createElement('div');
+symbol.classList = 'symbol'
 
-function getPressedKey(key) {   
-    //let pressedKey = e.target.innerText;
-    console.log(key);
-    // let char = document.createElement('div');
-    // char.classList = 'number1'
-    // char.textContent = pressed;    
-    // display.appendChild(char);
-}
-
+// check if pressed key is number or operator
 function checkIfNum(character) {
     check = isNaN(character);
     if (isNaN(character)) {
@@ -22,56 +20,31 @@ function checkIfNum(character) {
     }
 }
 
+// for number buttons
 function buttonClick(e) {
     // get the value of the key pressed
     let pressedNum = e.target.innerText;
+    // create element, set class (number1 or number2), assign text value and append it into display
     let num = document.createElement('div');
     num.classList = numClass;
     num.textContent = pressedNum;    
     display.appendChild(num);
-    
-    // check if pressedkey is number or symbol
-    // if number, append into display. 
-    // if (checkIfNum(pressedKey)) {
-    //     let num = document.createElement('div');
-    //     num.classList = numClass;
-    //     num.textContent = pressedKey;    
-    //     display.appendChild(num);
-
-    // // if symbol, append it to display and assign it to 'operator'
-    // } else {
-    //     operator = pressedKey;
-    //     console.log(operator);
-    //     let symbol = document.createElement('div');
-    //     symbol.classList = 'symbol'
-    //     symbol.textContent = pressedKey;
-    //     display.appendChild(symbol);
-
-    // // also change numberClass, when symbol is input
-    //     if (numClass == 'number1') {
-    //         numClass = 'number2';
-    //     } else if (numClass == 'number2') {
-    //         numClass = 'number1';
-    //     }
-    // }
 }
 
-symbol = document.createElement('div');
-symbol.classList = 'symbol'
-
+// for operation buttons
 function operatorClick(e) {
+    // if operator exists, raise alert
     if (hasOperator == true) {
         alert('One operator only!')
     } else {
-        // get pressed operator
-        let pressedOper = e.target.innerText;
-        // assign pressed operator to variable
+        // get pressed operator and assign to variable
+        let pressedOper = e.target.innerText;        
         operator = pressedOper;
+        // set hasOperator true, so no multiple operators
         hasOperator = true;
         // create the operator as an element and append into display         
         symbol.textContent = pressedOper;
-        display.appendChild(symbol);        
-
+        display.appendChild(symbol);
         // also change numberClass, when symbol is input
         if (numClass == 'number1') {
                 numClass = 'number2';
@@ -82,6 +55,7 @@ function operatorClick(e) {
 
 }
 
+// check operator and return it as string
 function checkOperator(oper) {
     if (oper == '+') {
         return 'add';
@@ -94,21 +68,19 @@ function checkOperator(oper) {
     }
 }
 
+// get each number from result and append them to display as 'number1' class
 function getNumberAsElements(resultNum) {
     let numString = resultNum.toString();
     let len = numString.length;
-    for (let k = 0; k < len; k++) {
-        // console.log(numString.charAt(k));
+    for (let k = 0; k < len; k++) {        
         let numEle = document.createElement('div');
         numEle.classList = 'number1';
         numEle.textContent = numString.charAt(k);    
         display.appendChild(numEle);
     }
-    // console.log(len);
-
 }
 
-
+// calculate based on 'operation' string
 function calculate(chosenOperatorion, num1, num2) {
     if (chosenOperatorion == 'add') {
         return num1 + num2;
@@ -121,37 +93,46 @@ function calculate(chosenOperatorion, num1, num2) {
     }
 }
 
-// resultEle = document.createElement('div');
-// resultEle.classList = '#result';
+// clear display
+function clear() {
+    // create reference to all numbers and operator present
+    const toClear = document.querySelectorAll('.number1, .number2, .symbol')
+    // remove each element
+    toClear.forEach(clear => {
+        clear.remove();
+    });
+    hasOperator = false;
+}
 
+// trigger calculation
 function equals() {
+    // create reference for both number sets and initialize strings for them
     let numbers1 = document.querySelectorAll('.number1');
     let numbers2 = document.querySelectorAll('.number2');
-    //console.log(numbers.length);
     let number1String = null;
     let number2String = null;
-    for (let i = 0; i < numbers1.length; i++) {
-        //console.log(numbers[i].innerHTML);
+    // get each number from both sets and assign to string
+    for (let i = 0; i < numbers1.length; i++) {        
         if (number1String == null) {
             number1String = numbers1[i].innerHTML;
         } else {
             number1String = number1String + numbers1[i].innerHTML;
         }        
     }
-    for (let j = 0; j < numbers2.length; j++) {
-        //console.log(numbers[i].innerHTML);
+    for (let j = 0; j < numbers2.length; j++) {        
         if (number2String == null) {
             number2String = numbers2[j].innerHTML;
         } else {
             number2String = number2String + numbers2[j].innerHTML;
         }        
     }
+    // check chosen operator and convert strings to number-type
     let operation = checkOperator(operator);
     let number1Conv = parseInt(number1String, 10);
     let number2Conv = parseInt(number2String, 10);
 
+    // calculate result and clear number sets and operator from display
     result = calculate(operation, number1Conv, number2Conv);
-
     numbers1.forEach (element1 => {
         element1.remove();
     });
@@ -159,21 +140,14 @@ function equals() {
         element2.remove();
     });
     symbol.remove();
+
+    // allow new operator and display each number of result as one element in display with class 'number1'
     hasOperator = false;
     getNumberAsElements(result);
     numClass = 'number1';
-
-
-    // console.log(result);
-    // console.log(operation)
-    // console.log(number1Conv);
-    // console.log(number2Conv);
-    // console.log(typeof(number1Conv));
-    // console.log(typeof(number2Conv));
-
 }
 
-
+// assign evenlisteners to buttons
 const numButtons = document.querySelectorAll('.calc-numButton');
 numButtons.forEach((numButton) => {
     numButton.addEventListener('click', buttonClick);
@@ -185,5 +159,8 @@ operButtons.forEach((operButton) => {
 });
 
 const equalToButton = document.querySelector('#equal-to');
-equalToButton.addEventListener('click', equals)
+equalToButton.addEventListener('click', equals);
+
+const clearBtn = document.querySelector('#clear');
+clearBtn.addEventListener('click', clear);
 
