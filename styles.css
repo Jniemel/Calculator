@@ -6,15 +6,17 @@ body {
 
 #calc-containder {
     display: flex;
-    flex-direction: column;     
+    flex-direction: column;      
 }
 
 #calc-border {
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: solid black 2px;
+    background-color: rgb(181, 0, 226);
+    border: 10px solid rgb(159, 0, 199);
     border-radius: 20px;
+    border-style: outset;       
     margin-top: 50px;
     padding: 30px;
        
@@ -23,19 +25,24 @@ body {
 #display {
     display: flex;
     justify-content: end;
-    align-items: center;    
-    border: solid black 1px;
+    align-items: center;
+    background-color: rgb(159, 0, 199); 
+    border: 3px solid rgb(159, 0, 199);  
+    border-style: inset;
     border-radius: 15px;
     width: 400px;
     height: 60px;
     margin-bottom: 10px;    
 }
+
 .number1,
 .number2,
 .symbol {
     margin-top: 10px;
     margin-bottom: 10px;    
     width: 15px;
+    color: blue;
+    font-size: 25px;
 }
 
 #button-container {
@@ -63,5 +70,11 @@ body {
 #result {
     width: 80px;
     height: 60px;
+    background-color: rgb(117, 0, 226);
+    color: beige;
+    font-size: 20px;
+    font-weight: 700;
+    border: 5px solid rgb(117, 0, 226);
+    border-style: outset;
 }
 
