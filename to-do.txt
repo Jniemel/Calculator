@@ -1,3 +1,4 @@
 1. Fix issue when pressing '=' and last input is operator
-2. Add possibility to use two negatives
-3. Add '.'-button and needed functions
+2. Add possibility for multiple operations
+3. Add possibility to use two negatives
+4. Add '.'-button and needed functions
